@@ -12,9 +12,14 @@ const Register = () => {
     const handleSubmit = (event) =>{
         event.preventDefault();
         setSuccess('')
+        setError('')
         const email = event.target.email.value;
         const password = event.target.password.value;
         console.log(email, password)
+        if(!/(?=.*[A-Z])/.test(password)){
+            setError('Add at least 1 uppercase');
+            return;
+        }
         createUserWithEmailAndPassword(auth, email, password)
         .then(result=>{
             const loggedUser = result.user;
